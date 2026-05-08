@@ -1,0 +1,198 @@
+@import url('https://fonts.googleapis.com/css2?family=Cinzel+Decorative&family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400&family=Inter:wght@400;500;600&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --background: 280 50% 97%;
+    --foreground: 250 20% 35%;
+    --card: 280 50% 97%;
+    --card-foreground: 250 20% 35%;
+    --popover: 280 50% 97%;
+    --popover-foreground: 250 20% 35%;
+    --primary: 270 100% 46%;
+    --primary-foreground: 0 0% 100%;
+    --secondary: 280 30% 94%;
+    --secondary-foreground: 250 20% 35%;
+    --muted: 280 20% 92%;
+    --muted-foreground: 250 10% 55%;
+    --accent: 310 60% 55%;
+    --accent-foreground: 0 0% 100%;
+    --destructive: 350 100% 60%;
+    --destructive-foreground: 0 0% 100%;
+    --border: 280 30% 88%;
+    --input: 280 30% 88%;
+    --ring: 270 100% 46%;
+    --radius: 0.5rem;
+    --sidebar-background: 280 50% 97%;
+    --sidebar-foreground: 250 20% 35%;
+    --sidebar-primary: 270 100% 46%;
+    --sidebar-primary-foreground: 0 0% 100%;
+    --sidebar-accent: 280 30% 94%;
+    --sidebar-accent-foreground: 250 20% 35%;
+    --sidebar-border: 280 30% 88%;
+    --sidebar-ring: 270 100% 46%;
+
+    /* Design tokens - light purple-pink theme */
+    --bg-deep: #f0e6ff;
+    --bg-base: transparent;
+    --card-bg: rgba(255,255,255,0.6);
+    --card-bg-hover: rgba(255,255,255,0.8);
+    --border-color: #d4c0e0;
+    --border-active: #7B2CBF;
+    --text-primary: #4a4a6a;
+    --text-secondary: #8888a0;
+    --accent-gold: #c44fd4;
+    --accent-purple: #7B2CBF;
+    --success: #00d9a3;
+    --danger: #ff3864;
+  }
+
+  body {
+    background: linear-gradient(135deg, #f0e6ff 0%, #ffe6f0 50%, #f8e0ff 100%);
+    min-height: 100vh;
+    color: #4a4a6a;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  * {
+    @apply border-purple-200/50;
+  }
+}
+
+@layer components {
+  /* Tarot card image fallback styling */
+  .tarot-card-img {
+    @apply w-full h-full object-cover;
+    transition: opacity 0.3s ease;
+  }
+
+  .tarot-card-img[hidden],
+  .tarot-card-img[src=""],
+  .tarot-card-img:not([src]) {
+    display: none;
+  }
+
+  /* Card face fallback - CSS-only card face when image fails */
+  .tarot-card-fallback {
+    @apply w-full h-full flex flex-col items-center justify-center relative;
+    background: linear-gradient(180deg, rgba(123, 44, 191, 0.1) 0%, rgba(240, 230, 255, 0.5) 100%);
+  }
+
+  /* Image loading shimmer effect */
+  .tarot-img-loading {
+    @apply relative overflow-hidden;
+    background: linear-gradient(90deg, #f0e6ff 0%, #ffe6f0 50%, #f0e6ff 100%);
+    background-size: 200% 100%;
+    animation: shimmer 1.5s ease-in-out infinite;
+  }
+
+  @keyframes shimmer {
+    0% {
+      background-position: 200% 0;
+    }
+    100% {
+      background-position: -200% 0;
+    }
+  }
+
+  /* Glow shadow for card containers */
+  .card-glow {
+    box-shadow: 0 4px 24px rgba(123, 44, 191, 0.12), 0 0 40px rgba(196, 79, 212, 0.08);
+  }
+
+  /* Reversed card styling */
+  .card-reversed {
+    transform: rotate(180deg);
+  }
+
+  /* Tier indicator borders for reading sections */
+  .tier-meaning {
+    border-left: 3px solid #7B2CBF;
+    background: rgba(123, 44, 191, 0.05);
+  }
+
+  .tier-context {
+    border-left: 3px solid #00d9a3;
+    background: rgba(0, 217, 163, 0.05);
+  }
+
+  .tier-advice {
+    border-left: 3px solid #c44fd4;
+    background: rgba(196, 79, 212, 0.05);
+  }
+}
+
+@layer utilities {
+  /* Shadow glow utility */
+  .shadow-glow {
+    box-shadow: 0 0 20px rgba(196, 79, 212, 0.3), 0 0 40px rgba(196, 79, 212, 0.1);
+  }
+
+  /* Ripple animation for buttons */
+  .animate-ripple {
+    animation: ripple 2s ease-out infinite;
+  }
+
+  @keyframes ripple {
+    0% {
+      box-shadow: 0 0 0 0 rgba(196, 79, 212, 0.4);
+    }
+    100% {
+      box-shadow: 0 0 0 20px rgba(196, 79, 212, 0);
+    }
+  }
+
+  /* Particle animation for celebration */
+  @keyframes particle-fall {
+    0% {
+      transform: translateY(-100vh) rotate(0deg);
+      opacity: 1;
+    }
+    100% {
+      transform: translateY(100vh) rotate(720deg);
+      opacity: 0;
+    }
+  }
+
+  .animate-particle {
+    animation: particle-fall linear forwards;
+  }
+
+  /* Flash effect for card reveal */
+  @keyframes flash {
+    0% {
+      opacity: 0.8;
+    }
+    100% {
+      opacity: 0;
+    }
+  }
+
+  .animate-flash {
+    animation: flash 0.4s ease-out forwards;
+  }
+
+  /* Smooth scrollbar styling */
+  .scrollbar-thin::-webkit-scrollbar {
+    width: 4px;
+    height: 4px;
+  }
+
+  .scrollbar-thin::-webkit-scrollbar-track {
+    background: transparent;
+  }
+
+  .scrollbar-thin::-webkit-scrollbar-thumb {
+    background: rgba(123, 44, 191, 0.2);
+    border-radius: 2px;
+  }
+
+  .scrollbar-thin::-webkit-scrollbar-thumb:hover {
+    background: rgba(123, 44, 191, 0.4);
+  }
+}
