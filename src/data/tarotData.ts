@@ -39,7 +39,7 @@ export interface TarotCard {
 export const tarotCards: TarotCard[] = [
   {
     id: 0,
-    imageUrl: '/cards/00-TheFool.png',
+    imageUrl: './cards/00-TheFool.png',
     name: '愚人',
     englishName: 'The Fool',
     suit: 'major',
@@ -68,7 +68,7 @@ export const tarotCards: TarotCard[] = [
   },
   {
     id: 1,
-    imageUrl: '/cards/01-TheMagician.png',
+    imageUrl: './cards/01-TheMagician.png',
     name: '魔术师',
     englishName: 'The Magician',
     suit: 'major',
@@ -97,7 +97,7 @@ export const tarotCards: TarotCard[] = [
   },
   {
     id: 2,
-    imageUrl: '/cards/02-TheHighPriestess.png',
+    imageUrl: './cards/02-TheHighPriestess.png',
     name: '女祭司',
     englishName: 'The High Priestess',
     suit: 'major',
@@ -126,7 +126,7 @@ export const tarotCards: TarotCard[] = [
   },
   {
     id: 3,
-    imageUrl: '/cards/03-TheEmpress.png',
+    imageUrl: './cards/03-TheEmpress.png',
     name: '女皇',
     englishName: 'The Empress',
     suit: 'major',
@@ -155,7 +155,7 @@ export const tarotCards: TarotCard[] = [
   },
   {
     id: 4,
-    imageUrl: '/cards/04-TheEmperor.png',
+    imageUrl: './cards/04-TheEmperor.png',
     name: '皇帝',
     englishName: 'The Emperor',
     suit: 'major',
@@ -184,7 +184,7 @@ export const tarotCards: TarotCard[] = [
   },
   {
     id: 5,
-    imageUrl: '/cards/05-TheHierophant.png',
+    imageUrl: './cards/05-TheHierophant.png',
     name: '教皇',
     englishName: 'The Hierophant',
     suit: 'major',
@@ -213,7 +213,7 @@ export const tarotCards: TarotCard[] = [
   },
   {
     id: 6,
-    imageUrl: '/cards/06-TheLovers.png',
+    imageUrl: './cards/06-TheLovers.png',
     name: '恋人',
     englishName: 'The Lovers',
     suit: 'major',
@@ -242,7 +242,7 @@ export const tarotCards: TarotCard[] = [
   },
   {
     id: 7,
-    imageUrl: '/cards/07-TheChariot.png',
+    imageUrl: './cards/07-TheChariot.png',
     name: '战车',
     englishName: 'The Chariot',
     suit: 'major',
@@ -271,7 +271,7 @@ export const tarotCards: TarotCard[] = [
   },
   {
     id: 8,
-    imageUrl: '/cards/08-Strength.png',
+    imageUrl: './cards/08-Strength.png',
     name: '力量',
     englishName: 'Strength',
     suit: 'major',
@@ -300,7 +300,7 @@ export const tarotCards: TarotCard[] = [
   },
   {
     id: 9,
-    imageUrl: '/cards/09-TheHermit.png',
+    imageUrl: './cards/09-TheHermit.png',
     name: '隐士',
     englishName: 'The Hermit',
     suit: 'major',
@@ -329,7 +329,7 @@ export const tarotCards: TarotCard[] = [
   },
   {
     id: 10,
-    imageUrl: '/cards/10-WheelOfFortune.png',
+    imageUrl: './cards/10-WheelOfFortune.png',
     name: '命运之轮',
     englishName: 'Wheel of Fortune',
     suit: 'major',
@@ -358,7 +358,7 @@ export const tarotCards: TarotCard[] = [
   },
   {
     id: 11,
-    imageUrl: '/cards/11-Justice.png',
+    imageUrl: './cards/11-Justice.png',
     name: '正义',
     englishName: 'Justice',
     suit: 'major',
@@ -387,7 +387,7 @@ export const tarotCards: TarotCard[] = [
   },
   {
     id: 12,
-    imageUrl: '/cards/12-TheHangedMan.png',
+    imageUrl: './cards/12-TheHangedMan.png',
     name: '倒吊人',
     englishName: 'The Hanged Man',
     suit: 'major',
@@ -416,7 +416,7 @@ export const tarotCards: TarotCard[] = [
   },
   {
     id: 13,
-    imageUrl: '/cards/13-Death.png',
+    imageUrl: './cards/13-Death.png',
     name: '死神',
     englishName: 'Death',
     suit: 'major',
@@ -445,7 +445,7 @@ export const tarotCards: TarotCard[] = [
   },
   {
     id: 14,
-    imageUrl: '/cards/14-Temperance.png',
+    imageUrl: './cards/14-Temperance.png',
     name: '节制',
     englishName: 'Temperance',
     suit: 'major',
@@ -474,7 +474,7 @@ export const tarotCards: TarotCard[] = [
   },
   {
     id: 15,
-    imageUrl: '/cards/15-TheDevil.png',
+    imageUrl: './cards/15-TheDevil.png',
     name: '恶魔',
     englishName: 'The Devil',
     suit: 'major',
@@ -503,7 +503,7 @@ export const tarotCards: TarotCard[] = [
   },
   {
     id: 16,
-    imageUrl: '/cards/16-TheTower.png',
+    imageUrl: './cards/16-TheTower.png',
     name: '塔',
     englishName: 'The Tower',
     suit: 'major',
@@ -532,7 +532,7 @@ export const tarotCards: TarotCard[] = [
   },
   {
     id: 17,
-    imageUrl: '/cards/17-TheStar.png',
+    imageUrl: './cards/17-TheStar.png',
     name: '星星',
     englishName: 'The Star',
     suit: 'major',
@@ -561,7 +561,7 @@ export const tarotCards: TarotCard[] = [
   },
   {
     id: 18,
-    imageUrl: '/cards/18-TheMoon.png',
+    imageUrl: './cards/18-TheMoon.png',
     name: '月亮',
     englishName: 'The Moon',
     suit: 'major',
@@ -590,7 +590,7 @@ export const tarotCards: TarotCard[] = [
   },
   {
     id: 19,
-    imageUrl: '/cards/19-TheSun.png',
+    imageUrl: './cards/19-TheSun.png',
     name: '太阳',
     englishName: 'The Sun',
     suit: 'major',
@@ -619,7 +619,7 @@ export const tarotCards: TarotCard[] = [
   },
   {
     id: 20,
-    imageUrl: '/cards/20-Judgement.png',
+    imageUrl: './cards/20-Judgement.png',
     name: '审判',
     englishName: 'Judgement',
     suit: 'major',
@@ -648,7 +648,7 @@ export const tarotCards: TarotCard[] = [
   },
   {
     id: 21,
-    imageUrl: '/cards/21-TheWorld.png',
+    imageUrl: './cards/21-TheWorld.png',
     name: '世界',
     englishName: 'The World',
     suit: 'major',
@@ -677,7 +677,7 @@ export const tarotCards: TarotCard[] = [
   },
   {
     id: 22,
-    imageUrl: '/cards/Wands01.png',
+    imageUrl: './cards/Wands01.png',
     name: '权杖首牌',
     englishName: 'Ace of Wands',
     suit: 'wands',
@@ -706,7 +706,7 @@ export const tarotCards: TarotCard[] = [
   },
   {
     id: 23,
-    imageUrl: '/cards/Wands02.png',
+    imageUrl: './cards/Wands02.png',
     name: '权杖二',
     englishName: 'Two of Wands',
     suit: 'wands',
@@ -735,7 +735,7 @@ export const tarotCards: TarotCard[] = [
   },
   {
     id: 24,
-    imageUrl: '/cards/Wands03.png',
+    imageUrl: './cards/Wands03.png',
     name: '权杖三',
     englishName: 'Three of Wands',
     suit: 'wands',
@@ -764,7 +764,7 @@ export const tarotCards: TarotCard[] = [
   },
   {
     id: 25,
-    imageUrl: '/cards/Wands04.png',
+    imageUrl: './cards/Wands04.png',
     name: '权杖四',
     englishName: 'Four of Wands',
     suit: 'wands',
@@ -793,7 +793,7 @@ export const tarotCards: TarotCard[] = [
   },
   {
     id: 26,
-    imageUrl: '/cards/Wands05.png',
+    imageUrl: './cards/Wands05.png',
     name: '权杖五',
     englishName: 'Five of Wands',
     suit: 'wands',
@@ -822,7 +822,7 @@ export const tarotCards: TarotCard[] = [
   },
   {
     id: 27,
-    imageUrl: '/cards/Wands06.png',
+    imageUrl: './cards/Wands06.png',
     name: '权杖六',
     englishName: 'Six of Wands',
     suit: 'wands',
@@ -851,7 +851,7 @@ export const tarotCards: TarotCard[] = [
   },
   {
     id: 28,
-    imageUrl: '/cards/Wands07.png',
+    imageUrl: './cards/Wands07.png',
     name: '权杖七',
     englishName: 'Seven of Wands',
     suit: 'wands',
@@ -880,7 +880,7 @@ export const tarotCards: TarotCard[] = [
   },
   {
     id: 29,
-    imageUrl: '/cards/Wands08.png',
+    imageUrl: './cards/Wands08.png',
     name: '权杖八',
     englishName: 'Eight of Wands',
     suit: 'wands',
@@ -909,7 +909,7 @@ export const tarotCards: TarotCard[] = [
   },
   {
     id: 30,
-    imageUrl: '/cards/Wands09.png',
+    imageUrl: './cards/Wands09.png',
     name: '权杖九',
     englishName: 'Nine of Wands',
     suit: 'wands',
@@ -938,7 +938,7 @@ export const tarotCards: TarotCard[] = [
   },
   {
     id: 31,
-    imageUrl: '/cards/Wands10.png',
+    imageUrl: './cards/Wands10.png',
     name: '权杖十',
     englishName: 'Ten of Wands',
     suit: 'wands',
@@ -967,7 +967,7 @@ export const tarotCards: TarotCard[] = [
   },
   {
     id: 32,
-    imageUrl: '/cards/Wands11.png',
+    imageUrl: './cards/Wands11.png',
     name: '权杖侍从',
     englishName: 'Page of Wands',
     suit: 'wands',
@@ -996,7 +996,7 @@ export const tarotCards: TarotCard[] = [
   },
   {
     id: 33,
-    imageUrl: '/cards/Wands12.png',
+    imageUrl: './cards/Wands12.png',
     name: '权杖骑士',
     englishName: 'Knight of Wands',
     suit: 'wands',
@@ -1025,7 +1025,7 @@ export const tarotCards: TarotCard[] = [
   },
   {
     id: 34,
-    imageUrl: '/cards/Wands13.png',
+    imageUrl: './cards/Wands13.png',
     name: '权杖皇后',
     englishName: 'Queen of Wands',
     suit: 'wands',
@@ -1054,7 +1054,7 @@ export const tarotCards: TarotCard[] = [
   },
   {
     id: 35,
-    imageUrl: '/cards/Wands14.png',
+    imageUrl: './cards/Wands14.png',
     name: '权杖国王',
     englishName: 'King of Wands',
     suit: 'wands',
@@ -1083,7 +1083,7 @@ export const tarotCards: TarotCard[] = [
   },
   {
     id: 36,
-    imageUrl: '/cards/Cups01.png',
+    imageUrl: './cards/Cups01.png',
     name: '圣杯首牌',
     englishName: 'Ace of Cups',
     suit: 'cups',
@@ -1112,7 +1112,7 @@ export const tarotCards: TarotCard[] = [
   },
   {
     id: 37,
-    imageUrl: '/cards/Cups02.png',
+    imageUrl: './cards/Cups02.png',
     name: '圣杯二',
     englishName: 'Two of Cups',
     suit: 'cups',
@@ -1141,7 +1141,7 @@ export const tarotCards: TarotCard[] = [
   },
   {
     id: 38,
-    imageUrl: '/cards/Cups03.png',
+    imageUrl: './cards/Cups03.png',
     name: '圣杯三',
     englishName: 'Three of Cups',
     suit: 'cups',
@@ -1170,7 +1170,7 @@ export const tarotCards: TarotCard[] = [
   },
   {
     id: 39,
-    imageUrl: '/cards/Cups04.png',
+    imageUrl: './cards/Cups04.png',
     name: '圣杯四',
     englishName: 'Four of Cups',
     suit: 'cups',
@@ -1199,7 +1199,7 @@ export const tarotCards: TarotCard[] = [
   },
   {
     id: 40,
-    imageUrl: '/cards/Cups05.png',
+    imageUrl: './cards/Cups05.png',
     name: '圣杯五',
     englishName: 'Five of Cups',
     suit: 'cups',
@@ -1228,7 +1228,7 @@ export const tarotCards: TarotCard[] = [
   },
   {
     id: 41,
-    imageUrl: '/cards/Cups06.png',
+    imageUrl: './cards/Cups06.png',
     name: '圣杯六',
     englishName: 'Six of Cups',
     suit: 'cups',
@@ -1257,7 +1257,7 @@ export const tarotCards: TarotCard[] = [
   },
   {
     id: 42,
-    imageUrl: '/cards/Cups07.png',
+    imageUrl: './cards/Cups07.png',
     name: '圣杯七',
     englishName: 'Seven of Cups',
     suit: 'cups',
@@ -1286,7 +1286,7 @@ export const tarotCards: TarotCard[] = [
   },
   {
     id: 43,
-    imageUrl: '/cards/Cups08.png',
+    imageUrl: './cards/Cups08.png',
     name: '圣杯八',
     englishName: 'Eight of Cups',
     suit: 'cups',
@@ -1315,7 +1315,7 @@ export const tarotCards: TarotCard[] = [
   },
   {
     id: 44,
-    imageUrl: '/cards/Cups09.png',
+    imageUrl: './cards/Cups09.png',
     name: '圣杯九',
     englishName: 'Nine of Cups',
     suit: 'cups',
@@ -1344,7 +1344,7 @@ export const tarotCards: TarotCard[] = [
   },
   {
     id: 45,
-    imageUrl: '/cards/Cups10.png',
+    imageUrl: './cards/Cups10.png',
     name: '圣杯十',
     englishName: 'Ten of Cups',
     suit: 'cups',
@@ -1373,7 +1373,7 @@ export const tarotCards: TarotCard[] = [
   },
   {
     id: 46,
-    imageUrl: '/cards/Cups11.png',
+    imageUrl: './cards/Cups11.png',
     name: '圣杯侍从',
     englishName: 'Page of Cups',
     suit: 'cups',
@@ -1402,7 +1402,7 @@ export const tarotCards: TarotCard[] = [
   },
   {
     id: 47,
-    imageUrl: '/cards/Cups12.png',
+    imageUrl: './cards/Cups12.png',
     name: '圣杯骑士',
     englishName: 'Knight of Cups',
     suit: 'cups',
@@ -1431,7 +1431,7 @@ export const tarotCards: TarotCard[] = [
   },
   {
     id: 48,
-    imageUrl: '/cards/Cups13.png',
+    imageUrl: './cards/Cups13.png',
     name: '圣杯皇后',
     englishName: 'Queen of Cups',
     suit: 'cups',
@@ -1460,7 +1460,7 @@ export const tarotCards: TarotCard[] = [
   },
   {
     id: 49,
-    imageUrl: '/cards/Cups14.png',
+    imageUrl: './cards/Cups14.png',
     name: '圣杯国王',
     englishName: 'King of Cups',
     suit: 'cups',
@@ -1489,7 +1489,7 @@ export const tarotCards: TarotCard[] = [
   },
   {
     id: 50,
-    imageUrl: '/cards/Swords01.png',
+    imageUrl: './cards/Swords01.png',
     name: '宝剑首牌',
     englishName: 'Ace of Swords',
     suit: 'swords',
@@ -1518,7 +1518,7 @@ export const tarotCards: TarotCard[] = [
   },
   {
     id: 51,
-    imageUrl: '/cards/Swords02.png',
+    imageUrl: './cards/Swords02.png',
     name: '宝剑二',
     englishName: 'Two of Swords',
     suit: 'swords',
@@ -1547,7 +1547,7 @@ export const tarotCards: TarotCard[] = [
   },
   {
     id: 52,
-    imageUrl: '/cards/Swords03.png',
+    imageUrl: './cards/Swords03.png',
     name: '宝剑三',
     englishName: 'Three of Swords',
     suit: 'swords',
@@ -1576,7 +1576,7 @@ export const tarotCards: TarotCard[] = [
   },
   {
     id: 53,
-    imageUrl: '/cards/Swords04.png',
+    imageUrl: './cards/Swords04.png',
     name: '宝剑四',
     englishName: 'Four of Swords',
     suit: 'swords',
@@ -1605,7 +1605,7 @@ export const tarotCards: TarotCard[] = [
   },
   {
     id: 54,
-    imageUrl: '/cards/Swords05.png',
+    imageUrl: './cards/Swords05.png',
     name: '宝剑五',
     englishName: 'Five of Swords',
     suit: 'swords',
@@ -1634,7 +1634,7 @@ export const tarotCards: TarotCard[] = [
   },
   {
     id: 55,
-    imageUrl: '/cards/Swords06.png',
+    imageUrl: './cards/Swords06.png',
     name: '宝剑六',
     englishName: 'Six of Swords',
     suit: 'swords',
@@ -1663,7 +1663,7 @@ export const tarotCards: TarotCard[] = [
   },
   {
     id: 56,
-    imageUrl: '/cards/Swords07.png',
+    imageUrl: './cards/Swords07.png',
     name: '宝剑七',
     englishName: 'Seven of Swords',
     suit: 'swords',
@@ -1692,7 +1692,7 @@ export const tarotCards: TarotCard[] = [
   },
   {
     id: 57,
-    imageUrl: '/cards/Swords08.png',
+    imageUrl: './cards/Swords08.png',
     name: '宝剑八',
     englishName: 'Eight of Swords',
     suit: 'swords',
@@ -1721,7 +1721,7 @@ export const tarotCards: TarotCard[] = [
   },
   {
     id: 58,
-    imageUrl: '/cards/Swords09.png',
+    imageUrl: './cards/Swords09.png',
     name: '宝剑九',
     englishName: 'Nine of Swords',
     suit: 'swords',
@@ -1750,7 +1750,7 @@ export const tarotCards: TarotCard[] = [
   },
   {
     id: 59,
-    imageUrl: '/cards/Swords10.png',
+    imageUrl: './cards/Swords10.png',
     name: '宝剑十',
     englishName: 'Ten of Swords',
     suit: 'swords',
@@ -1779,7 +1779,7 @@ export const tarotCards: TarotCard[] = [
   },
   {
     id: 60,
-    imageUrl: '/cards/Swords11.png',
+    imageUrl: './cards/Swords11.png',
     name: '宝剑侍从',
     englishName: 'Page of Swords',
     suit: 'swords',
@@ -1808,7 +1808,7 @@ export const tarotCards: TarotCard[] = [
   },
   {
     id: 61,
-    imageUrl: '/cards/Swords12.png',
+    imageUrl: './cards/Swords12.png',
     name: '宝剑骑士',
     englishName: 'Knight of Swords',
     suit: 'swords',
@@ -1837,7 +1837,7 @@ export const tarotCards: TarotCard[] = [
   },
   {
     id: 62,
-    imageUrl: '/cards/Swords13.png',
+    imageUrl: './cards/Swords13.png',
     name: '宝剑皇后',
     englishName: 'Queen of Swords',
     suit: 'swords',
@@ -1866,7 +1866,7 @@ export const tarotCards: TarotCard[] = [
   },
   {
     id: 63,
-    imageUrl: '/cards/Swords14.png',
+    imageUrl: './cards/Swords14.png',
     name: '宝剑国王',
     englishName: 'King of Swords',
     suit: 'swords',
@@ -1895,7 +1895,7 @@ export const tarotCards: TarotCard[] = [
   },
   {
     id: 64,
-    imageUrl: '/cards/Pentacles01.png',
+    imageUrl: './cards/Pentacles01.png',
     name: '星币首牌',
     englishName: 'Ace of Pentacles',
     suit: 'pentacles',
@@ -1924,7 +1924,7 @@ export const tarotCards: TarotCard[] = [
   },
   {
     id: 65,
-    imageUrl: '/cards/Pentacles02.png',
+    imageUrl: './cards/Pentacles02.png',
     name: '星币二',
     englishName: 'Two of Pentacles',
     suit: 'pentacles',
@@ -1953,7 +1953,7 @@ export const tarotCards: TarotCard[] = [
   },
   {
     id: 66,
-    imageUrl: '/cards/Pentacles03.png',
+    imageUrl: './cards/Pentacles03.png',
     name: '星币三',
     englishName: 'Three of Pentacles',
     suit: 'pentacles',
@@ -1982,7 +1982,7 @@ export const tarotCards: TarotCard[] = [
   },
   {
     id: 67,
-    imageUrl: '/cards/Pentacles04.png',
+    imageUrl: './cards/Pentacles04.png',
     name: '星币四',
     englishName: 'Four of Pentacles',
     suit: 'pentacles',
@@ -2011,7 +2011,7 @@ export const tarotCards: TarotCard[] = [
   },
   {
     id: 68,
-    imageUrl: '/cards/Pentacles05.png',
+    imageUrl: './cards/Pentacles05.png',
     name: '星币五',
     englishName: 'Five of Pentacles',
     suit: 'pentacles',
@@ -2040,7 +2040,7 @@ export const tarotCards: TarotCard[] = [
   },
   {
     id: 69,
-    imageUrl: '/cards/Pentacles06.png',
+    imageUrl: './cards/Pentacles06.png',
     name: '星币六',
     englishName: 'Six of Pentacles',
     suit: 'pentacles',
@@ -2069,7 +2069,7 @@ export const tarotCards: TarotCard[] = [
   },
   {
     id: 70,
-    imageUrl: '/cards/Pentacles07.png',
+    imageUrl: './cards/Pentacles07.png',
     name: '星币七',
     englishName: 'Seven of Pentacles',
     suit: 'pentacles',
@@ -2098,7 +2098,7 @@ export const tarotCards: TarotCard[] = [
   },
   {
     id: 71,
-    imageUrl: '/cards/Pentacles08.png',
+    imageUrl: './cards/Pentacles08.png',
     name: '星币八',
     englishName: 'Eight of Pentacles',
     suit: 'pentacles',
@@ -2127,7 +2127,7 @@ export const tarotCards: TarotCard[] = [
   },
   {
     id: 72,
-    imageUrl: '/cards/Pentacles09.png',
+    imageUrl: './cards/Pentacles09.png',
     name: '星币九',
     englishName: 'Nine of Pentacles',
     suit: 'pentacles',
@@ -2156,7 +2156,7 @@ export const tarotCards: TarotCard[] = [
   },
   {
     id: 73,
-    imageUrl: '/cards/Pentacles10.png',
+    imageUrl: './cards/Pentacles10.png',
     name: '星币十',
     englishName: 'Ten of Pentacles',
     suit: 'pentacles',
@@ -2185,7 +2185,7 @@ export const tarotCards: TarotCard[] = [
   },
   {
     id: 74,
-    imageUrl: '/cards/Pentacles11.png',
+    imageUrl: './cards/Pentacles11.png',
     name: '星币侍从',
     englishName: 'Page of Pentacles',
     suit: 'pentacles',
@@ -2214,7 +2214,7 @@ export const tarotCards: TarotCard[] = [
   },
   {
     id: 75,
-    imageUrl: '/cards/Pentacles12.png',
+    imageUrl: './cards/Pentacles12.png',
     name: '星币骑士',
     englishName: 'Knight of Pentacles',
     suit: 'pentacles',
@@ -2243,7 +2243,7 @@ export const tarotCards: TarotCard[] = [
   },
   {
     id: 76,
-    imageUrl: '/cards/Pentacles13.png',
+    imageUrl: './cards/Pentacles13.png',
     name: '星币皇后',
     englishName: 'Queen of Pentacles',
     suit: 'pentacles',
@@ -2272,7 +2272,7 @@ export const tarotCards: TarotCard[] = [
   },
   {
     id: 77,
-    imageUrl: '/cards/Pentacles14.png',
+    imageUrl: './cards/Pentacles14.png',
     name: '星币国王',
     englishName: 'King of Pentacles',
     suit: 'pentacles',

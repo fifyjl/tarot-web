@@ -26,7 +26,7 @@ export default function PaymentQrModal({
   const [paidStep, setPaidStep] = useState<'qr' | 'confirm' | 'done'>('qr');
   
   const isWechat = payMethod === 'wechat';
-  const qrImage = isWechat ? '/payment/wechat-qr.jpg' : '/payment/alipay-qr.jpg';
+  const qrImage = isWechat ? './payment/wechat-qr.jpg' : './payment/alipay-qr.jpg';
   const brandColor = isWechat ? '#22c55e' : '#1677ff';
   const brandName = isWechat ? '微信支付' : '支付宝';
   const brandBg = isWechat ? 'bg-green-50 border-green-200' : 'bg-blue-50 border-blue-200';
@@ -108,7 +108,7 @@ export default function PaymentQrModal({
                           <div class="text-center p-8">
                             <div class="text-4xl mb-2">📱</div>
                             <p class="text-gray-500 text-sm">请管理员上传${brandName}收款码</p>
-                            <p class="text-xs text-gray-400 mt-1">路径: /payment/${isWechat ? 'wechat-qr' : 'alipay-qr'}.jpg</p>
+                            <p class="text-xs text-gray-400 mt-1">路径: ./payment/${isWechat ? 'wechat-qr' : 'alipay-qr'}.jpg</p>
                           </div>
                         `;
                       }}
