@@ -7,7 +7,9 @@ import { SPREADS } from '@/data/spreads';
 import type { Spread } from '@/data/spreads';
 import { setCurrentReading } from '@/utils/session';
 import { generateReading } from '@/utils/interpreter';
+import { canRead, useReading } from '@/utils/vip';
 import type { DrawnCard } from '@/utils/draw';
+import PaywallModal from '@/components/PaywallModal';
 
 interface DeckCard extends TarotCard {
   selected: boolean;
@@ -50,6 +52,13 @@ function CardBackFace({ mini = false }: { mini?: boolean }) {
       <div className="absolute top-1 right-1 text-[#7B2CBF]/20 text-[8px]">&#9672;</div>
       <div className="absolute bottom-1 left-1 text-[#7B2CBF]/20 text-[8px]">&#9672;</div>
       <div className="absolute bottom-1 right-1 text-[#7B2CBF]/20 text-[8px]">&#9672;</div>
+      {/* 付费墙弹窗 */}
+      <PaywallModal
+        isOpen={showPaywall}
+        onClose={() => setShowPaywall(false)}
+        spreadName={spread?.name}
+        cardCount={spread?.cardCount}
+      />
     </div>
   );
 }
@@ -75,6 +84,8 @@ export default function Draw() {
   const [toastMsg, setToastMsg] = useState<string | null>(null);
   const [flashCardId, setFlashCardId] = useState<number | null>(null);
   const [lastSelectedId, setLastSelectedId] = useState<number | null>(null);
+  const [showPaywall, setShowPaywall] = useState(false);
+  const [isUsingReading, setIsUsingReading] = useState(false);
 
   // Guard: invalid spread
   useEffect(() => {
@@ -167,23 +178,44 @@ export default function Draw() {
     }, selectedIds.length * 500 + 1400);
   }, [deck, spread]);
 
-  const goToResult = useCallback(() => {
-    if (!spread) return;
-    const selectedCards: DrawnCard[] = deck
-      .filter((c) => c.selected)
-      .map(({ selected: _s, ...card }) => card as DrawnCard);
+  const goToResult = useCallback(async () => {
+    if (!spread || isUsingReading) return;
+    setIsUsingReading(true);
 
-    const reading = generateReading(question, spread as Spread, selectedCards);
-    setCurrentReading({
-      id: Date.now().toString(),
-      timestamp: Date.now(),
-      question,
-      spread,
-      cards: selectedCards,
-      reading,
-    });
-    navigate('/result');
-  }, [deck, question, spread, navigate]);
+    try {
+      // 检查是否有测算次数
+      const check = canRead();
+      if (!check.allowed) {
+        setShowPaywall(true);
+        return;
+      }
+
+      // 扣减次数
+      const result = await useReading(spread.name, spread.cardCount);
+      if (!result.success) {
+        setToastMsg(result.message);
+        setShowPaywall(true);
+        return;
+      }
+
+      const selectedCards: DrawnCard[] = deck
+        .filter((c) => c.selected)
+        .map(({ selected: _s, ...card }) => card as DrawnCard);
+
+      const reading = generateReading(question, spread as Spread, selectedCards);
+      setCurrentReading({
+        id: Date.now().toString(),
+        timestamp: Date.now(),
+        question,
+        spread,
+        cards: selectedCards,
+        reading,
+      });
+      navigate('/result');
+    } finally {
+      setIsUsingReading(false);
+    }
+  }, [deck, question, spread, navigate, isUsingReading]);
 
   if (!spread) return null;
 
@@ -411,12 +443,21 @@ export default function Draw() {
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
             onClick={goToResult}
-            className="px-8 py-3 bg-gradient-to-r from-purple-500 to-pink-500 text-white rounded-full font-bold text-lg shadow-[0_0_20px_rgba(196,79,212,0.35)] tracking-wide"
+            disabled={isUsingReading}
+            className="px-8 py-3 bg-gradient-to-r from-purple-500 to-pink-500 text-white rounded-full font-bold text-lg shadow-[0_0_20px_rgba(196,79,212,0.35)] tracking-wide disabled:opacity-50 disabled:cursor-not-allowed"
           >
-            查看解读
+            {isUsingReading ? '处理中...' : '查看解读'}
           </motion.button>
         )}
       </div>
+
+      {/* 付费墙弹窗 */}
+      <PaywallModal
+        isOpen={showPaywall}
+        onClose={() => setShowPaywall(false)}
+        spreadName={spread?.name}
+        cardCount={spread?.cardCount}
+      />
     </div>
   );
 }

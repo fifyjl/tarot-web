@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { motion } from 'framer-motion';
-import { register, login, initAdmin } from '@/utils/userAuth';
+import { register, login, initAdmin, generateVerifyCode, checkVerifyCode } from '@/utils/userAuth';
 
 export default function Login() {
   const [isRegister, setIsRegister] = useState(false);
@@ -11,12 +11,25 @@ export default function Login() {
   const [error, setError] = useState('');
   const [success, setSuccess] = useState('');
   const [isLoading, setIsLoading] = useState(false);
+  const [verifyQuestion, setVerifyQuestion] = useState('');
+  const [verifyAnswer, setVerifyAnswer] = useState('');
+  const [verifyInput, setVerifyInput] = useState('');
   const navigate = useNavigate();
 
   // 初始化管理员
   useEffect(() => {
     initAdmin();
   }, []);
+
+  // 注册时生成验证码
+  useEffect(() => {
+    if (isRegister) {
+      const code = generateVerifyCode();
+      setVerifyQuestion(code.question);
+      setVerifyAnswer(code.answer);
+      setVerifyInput('');
+    }
+  }, [isRegister]);
 
   const handleSubmit = async () => {
     setError('');
@@ -31,12 +44,17 @@ export default function Login() {
 
     try {
       if (isRegister) {
-        const result = await register(username.trim(), password, confirmPassword);
+        const result = await register(username.trim(), password, confirmPassword, verifyInput, verifyAnswer);
         if (result.success) {
           setSuccess('注册成功，正在登录...');
           setTimeout(() => navigate('/'), 1000);
         } else {
           setError(result.message);
+          // 刷新验证码
+          const code = generateVerifyCode();
+          setVerifyQuestion(code.question);
+          setVerifyAnswer(code.answer);
+          setVerifyInput('');
         }
       } else {
         const result = await login(username.trim(), password);
@@ -106,6 +124,32 @@ export default function Login() {
             </div>
           )}
 
+          {/* 验证码（注册时） */}
+          {isRegister && (
+            <div className="flex gap-2">
+              <input
+                type="text"
+                value={verifyInput}
+                onChange={(e) => { setVerifyInput(e.target.value); setError(''); }}
+                placeholder={`验证码: ${verifyQuestion}`}
+                maxLength={2}
+                className="flex-1 bg-white/90 border border-purple-200 rounded-xl px-4 py-3 text-gray-800 placeholder:text-gray-400 focus:outline-none focus:border-[#7B2CBF] focus:ring-2 focus:ring-purple-200 transition"
+              />
+              <button
+                type="button"
+                onClick={() => {
+                  const code = generateVerifyCode();
+                  setVerifyQuestion(code.question);
+                  setVerifyAnswer(code.answer);
+                  setVerifyInput('');
+                }}
+                className="px-4 py-3 bg-purple-100 text-[#7B2CBF] rounded-xl font-bold text-sm hover:bg-purple-200 transition whitespace-nowrap"
+              >
+                刷新
+              </button>
+            </div>
+          )}
+
           {/* 错误/成功提示 */}
           {error && (
             <motion.p initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="text-rose-500 text-sm text-center">
@@ -131,7 +175,17 @@ export default function Login() {
           <p className="text-center text-sm text-gray-500">
             {isRegister ? '已有账号？' : '还没有账号？'}
             <button
-              onClick={() => { setIsRegister(!isRegister); setError(''); setSuccess(''); }}
+              onClick={() => {
+                setIsRegister(!isRegister);
+                setError('');
+                setSuccess('');
+                setVerifyInput('');
+                if (!isRegister) {
+                  const code = generateVerifyCode();
+                  setVerifyQuestion(code.question);
+                  setVerifyAnswer(code.answer);
+                }
+              }}
               className="text-[#7B2CBF] font-bold ml-1 hover:underline"
             >
               {isRegister ? '去登录' : '去注册'}

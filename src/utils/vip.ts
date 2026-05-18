@@ -67,15 +67,16 @@ export function getVipStatus(): VipStatus {
   
   // 未登录 = 游客，只有1次免费
   if (!user) {
+    const guestUsed = localStorage.getItem(`yuyu_guest_free_used_${today}`);
     return {
       tier: 'free',
       isVip: false,
       isAdmin: false,
       vipExpireAt: null,
       balance: 0,
-      dailyFreeUsed: 0,
+      dailyFreeUsed: guestUsed ? 1 : 0,
       dailyFreeResetDate: today,
-      freeRemaining: 1,
+      freeRemaining: guestUsed ? 0 : 1,
       isUnlimited: false,
     };
   }
@@ -167,12 +168,15 @@ export async function useReading(spreadName: string, cardCount: number): Promise
   
   // 使用免费次数
   if (status.freeRemaining > 0) {
-    // 更新本地缓存
     if (user) {
+      // 登录用户：更新本地缓存并同步云端
       updateFreeUsed(user.id || user.username);
+      syncFreeUsage(user.id || '');
+    } else {
+      // 游客：记录到 localStorage
+      const today = new Date().toISOString().split('T')[0];
+      localStorage.setItem(`yuyu_guest_free_used_${today}`, '1');
     }
-    // 异步同步到云端
-    syncFreeUsage(user?.id || '');
     return { success: true, message: '使用免费次数' };
   }
   

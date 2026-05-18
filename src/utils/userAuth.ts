@@ -93,14 +93,40 @@ function isValidPhone(phone: string): boolean {
 }
 
 /**
+ * 生成注册验证码（数学题）
+ */
+export function generateVerifyCode(): { question: string; answer: string } {
+  const a = Math.floor(Math.random() * 9) + 1;
+  const b = Math.floor(Math.random() * 9) + 1;
+  return {
+    question: `${a} + ${b} = ?`,
+    answer: String(a + b),
+  };
+}
+
+/**
+ * 校验验证码
+ */
+export function checkVerifyCode(input: string, expected: string): boolean {
+  return input.trim() === expected;
+}
+
+/**
  * 注册新用户
  */
 export async function register(
   username: string,
   password: string,
-  confirmPassword: string
+  confirmPassword: string,
+  verifyCodeInput: string,
+  expectedCode: string
 ): Promise<{ success: boolean; message: string }> {
   const trimmedUsername = username.trim();
+
+  // 校验验证码
+  if (!verifyCodeInput || !checkVerifyCode(verifyCodeInput, expectedCode)) {
+    return { success: false, message: '验证码错误，请重新计算' };
+  }
 
   // 必须是手机号格式
   if (!isValidPhone(trimmedUsername)) {

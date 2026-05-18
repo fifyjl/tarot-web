@@ -18,6 +18,7 @@ export default function Navbar() {
     { path: '/', label: '占卜' },
     { path: '/daily', label: '运势' },
     { path: '/history', label: '历史' },
+    { path: '/vip', label: '会员' },
   ]
 
   const handleLogout = () => {
