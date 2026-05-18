@@ -52,13 +52,6 @@ function CardBackFace({ mini = false }: { mini?: boolean }) {
       <div className="absolute top-1 right-1 text-[#7B2CBF]/20 text-[8px]">&#9672;</div>
       <div className="absolute bottom-1 left-1 text-[#7B2CBF]/20 text-[8px]">&#9672;</div>
       <div className="absolute bottom-1 right-1 text-[#7B2CBF]/20 text-[8px]">&#9672;</div>
-      {/* 付费墙弹窗 */}
-      <PaywallModal
-        isOpen={showPaywall}
-        onClose={() => setShowPaywall(false)}
-        spreadName={spread?.name}
-        cardCount={spread?.cardCount}
-      />
     </div>
   );
 }
