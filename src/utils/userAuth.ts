@@ -93,22 +93,77 @@ function isValidPhone(phone: string): boolean {
 }
 
 /**
- * 生成注册验证码（数学题）
+ * 生成6位短信验证码
  */
-export function generateVerifyCode(): { question: string; answer: string } {
-  const a = Math.floor(Math.random() * 9) + 1;
-  const b = Math.floor(Math.random() * 9) + 1;
-  return {
-    question: `${a} + ${b} = ?`,
-    answer: String(a + b),
-  };
+function generateSixDigitCode(): string {
+  return String(Math.floor(100000 + Math.random() * 900000));
 }
 
 /**
- * 校验验证码
+ * 发送短信验证码
+ * TODO: 请在此处接入真实短信服务商（阿里云/腾讯云/Twilio）
+ * 目前为测试阶段，验证码会打印在浏览器控制台
  */
-export function checkVerifyCode(input: string, expected: string): boolean {
-  return input.trim() === expected;
+export async function sendSmsCode(phone: string): Promise<{ success: boolean; message: string; code?: string }> {
+  const trimmedPhone = phone.trim();
+  if (!isValidPhone(trimmedPhone)) {
+    return { success: false, message: '请输入正确的11位手机号' };
+  }
+
+  const online = await isSupabaseAvailable();
+  if (!online) {
+    return { success: false, message: '网络异常，请稍后重试' };
+  }
+
+  const code = generateSixDigitCode();
+  const expiresAt = new Date(Date.now() + 5 * 60 * 1000).toISOString(); // 5分钟过期
+
+  // 存入 Supabase（先删除该手机号旧验证码）
+  try {
+    // 清理过期和旧的验证码
+    await supabaseFetch(`/verify_codes?phone=eq.${encodeURIComponent(trimmedPhone)}`, {
+      method: 'DELETE',
+    });
+
+    await supabaseFetch('/verify_codes', {
+      method: 'POST',
+      body: JSON.stringify({
+        phone: trimmedPhone,
+        code,
+        expires_at: expiresAt,
+      }),
+    });
+  } catch {
+    return { success: false, message: '验证码发送失败，请稍后重试' };
+  }
+
+  // ====== 接入真实短信服务商 ======
+  // 阿里云示例：
+  // const smsResponse = await fetch('https://dysmsapi.aliyuncs.com/', { ... });
+  // 腾讯云示例：
+  // const smsResponse = await fetch('https://sms.tencentcloudapi.com/', { ... });
+  // ================================
+
+  // 测试阶段：验证码输出到控制台
+  console.log(`【测试模式】手机号 ${trimmedPhone} 的验证码是: ${code}`);
+
+  return { success: true, message: '验证码已发送', code };
+}
+
+/**
+ * 校验短信验证码
+ */
+export async function verifySmsCode(phone: string, inputCode: string): Promise<boolean> {
+  if (!inputCode || inputCode.length !== 6) return false;
+
+  try {
+    const codes = await supabaseFetch<Array<{ code: string; expires_at: string }>>(
+      `/verify_codes?phone=eq.${encodeURIComponent(phone.trim())}&code=eq.${encodeURIComponent(inputCode)}&expires_at=gte.${new Date().toISOString()}&order=created_at.desc&limit=1`
+    );
+    return !!codes && codes.length > 0;
+  } catch {
+    return false;
+  }
 }
 
 /**
@@ -118,15 +173,9 @@ export async function register(
   username: string,
   password: string,
   confirmPassword: string,
-  verifyCodeInput: string,
-  expectedCode: string
+  smsCode: string
 ): Promise<{ success: boolean; message: string }> {
   const trimmedUsername = username.trim();
-
-  // 校验验证码
-  if (!verifyCodeInput || !checkVerifyCode(verifyCodeInput, expectedCode)) {
-    return { success: false, message: '验证码错误，请重新计算' };
-  }
 
   // 必须是手机号格式
   if (!isValidPhone(trimmedUsername)) {
@@ -137,6 +186,12 @@ export async function register(
   }
   if (password !== confirmPassword) {
     return { success: false, message: '两次密码不一致' };
+  }
+
+  // 校验短信验证码
+  const smsValid = await verifySmsCode(trimmedUsername, smsCode);
+  if (!smsValid) {
+    return { success: false, message: '短信验证码错误或已过期' };
   }
 
   // 检查是否在线

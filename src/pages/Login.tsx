@@ -1,19 +1,19 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { motion } from 'framer-motion';
-import { register, login, initAdmin, generateVerifyCode, checkVerifyCode } from '@/utils/userAuth';
+import { register, login, initAdmin, sendSmsCode } from '@/utils/userAuth';
 
 export default function Login() {
   const [isRegister, setIsRegister] = useState(false);
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
+  const [smsCode, setSmsCode] = useState('');
   const [error, setError] = useState('');
   const [success, setSuccess] = useState('');
   const [isLoading, setIsLoading] = useState(false);
-  const [verifyQuestion, setVerifyQuestion] = useState('');
-  const [verifyAnswer, setVerifyAnswer] = useState('');
-  const [verifyInput, setVerifyInput] = useState('');
+  const [isSendingCode, setIsSendingCode] = useState(false);
+  const [countdown, setCountdown] = useState(0);
   const navigate = useNavigate();
 
   // 初始化管理员
@@ -21,15 +21,40 @@ export default function Login() {
     initAdmin();
   }, []);
 
-  // 注册时生成验证码
+  // 倒计时
   useEffect(() => {
-    if (isRegister) {
-      const code = generateVerifyCode();
-      setVerifyQuestion(code.question);
-      setVerifyAnswer(code.answer);
-      setVerifyInput('');
+    if (countdown <= 0) return;
+    const timer = setTimeout(() => setCountdown((c) => c - 1), 1000);
+    return () => clearTimeout(timer);
+  }, [countdown]);
+
+  const handleSendCode = useCallback(async () => {
+    if (!username.trim()) {
+      setError('请先输入手机号');
+      return;
     }
-  }, [isRegister]);
+    if (countdown > 0) return;
+
+    setIsSendingCode(true);
+    setError('');
+
+    try {
+      const result = await sendSmsCode(username.trim());
+      if (result.success) {
+        setCountdown(60);
+        setSuccess('验证码已发送，请注意查收短信');
+        setTimeout(() => setSuccess(''), 3000);
+        // 测试阶段：把验证码显示给用户
+        if (result.code) {
+          console.log(`测试验证码: ${result.code}`);
+        }
+      } else {
+        setError(result.message);
+      }
+    } finally {
+      setIsSendingCode(false);
+    }
+  }, [username, countdown]);
 
   const handleSubmit = async () => {
     setError('');
@@ -44,17 +69,17 @@ export default function Login() {
 
     try {
       if (isRegister) {
-        const result = await register(username.trim(), password, confirmPassword, verifyInput, verifyAnswer);
+        if (!smsCode || smsCode.length !== 6) {
+          setError('请输入6位短信验证码');
+          setIsLoading(false);
+          return;
+        }
+        const result = await register(username.trim(), password, confirmPassword, smsCode);
         if (result.success) {
           setSuccess('注册成功，正在登录...');
           setTimeout(() => navigate('/'), 1000);
         } else {
           setError(result.message);
-          // 刷新验证码
-          const code = generateVerifyCode();
-          setVerifyQuestion(code.question);
-          setVerifyAnswer(code.answer);
-          setVerifyInput('');
         }
       } else {
         const result = await login(username.trim(), password);
@@ -88,7 +113,7 @@ export default function Login() {
         </div>
 
         <div className="space-y-4">
-          {/* 用户名 */}
+          {/* 手机号 */}
           <div>
             <input
               type="tel"
@@ -124,28 +149,24 @@ export default function Login() {
             </div>
           )}
 
-          {/* 验证码（注册时） */}
+          {/* 短信验证码（注册时） */}
           {isRegister && (
             <div className="flex gap-2">
               <input
                 type="text"
-                value={verifyInput}
-                onChange={(e) => { setVerifyInput(e.target.value); setError(''); }}
-                placeholder={`验证码: ${verifyQuestion}`}
-                maxLength={2}
+                value={smsCode}
+                onChange={(e) => { setSmsCode(e.target.value.replace(/\D/g, '').slice(0, 6)); setError(''); }}
+                placeholder="请输入6位短信验证码"
+                maxLength={6}
                 className="flex-1 bg-white/90 border border-purple-200 rounded-xl px-4 py-3 text-gray-800 placeholder:text-gray-400 focus:outline-none focus:border-[#7B2CBF] focus:ring-2 focus:ring-purple-200 transition"
               />
               <button
                 type="button"
-                onClick={() => {
-                  const code = generateVerifyCode();
-                  setVerifyQuestion(code.question);
-                  setVerifyAnswer(code.answer);
-                  setVerifyInput('');
-                }}
-                className="px-4 py-3 bg-purple-100 text-[#7B2CBF] rounded-xl font-bold text-sm hover:bg-purple-200 transition whitespace-nowrap"
+                onClick={handleSendCode}
+                disabled={isSendingCode || countdown > 0}
+                className="px-4 py-3 bg-purple-100 text-[#7B2CBF] rounded-xl font-bold text-sm hover:bg-purple-200 transition whitespace-nowrap disabled:opacity-50 disabled:cursor-not-allowed"
               >
-                刷新
+                {countdown > 0 ? `${countdown}秒后重发` : isSendingCode ? '发送中...' : '获取验证码'}
               </button>
             </div>
           )}
@@ -179,12 +200,8 @@ export default function Login() {
                 setIsRegister(!isRegister);
                 setError('');
                 setSuccess('');
-                setVerifyInput('');
-                if (!isRegister) {
-                  const code = generateVerifyCode();
-                  setVerifyQuestion(code.question);
-                  setVerifyAnswer(code.answer);
-                }
+                setSmsCode('');
+                setCountdown(0);
               }}
               className="text-[#7B2CBF] font-bold ml-1 hover:underline"
             >
