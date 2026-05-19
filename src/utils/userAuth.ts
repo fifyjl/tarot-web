@@ -137,15 +137,26 @@ export async function sendSmsCode(phone: string): Promise<{ success: boolean; me
     return { success: false, message: '验证码发送失败，请稍后重试' };
   }
 
-  // ====== 接入真实短信服务商 ======
-  // 阿里云示例：
-  // const smsResponse = await fetch('https://dysmsapi.aliyuncs.com/', { ... });
-  // 腾讯云示例：
-  // const smsResponse = await fetch('https://sms.tencentcloudapi.com/', { ... });
-  // ================================
-
-  // 测试阶段：验证码输出到控制台
-  console.log(`【测试模式】手机号 ${trimmedPhone} 的验证码是: ${code}`);
+  // 调用 Vercel API 发送真实短信（密钥不会暴露在前端）
+  try {
+    const response = await fetch('/api/send-sms', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ phone: trimmedPhone, code }),
+    });
+    const result = await response.json();
+    if (!response.ok || !result.success) {
+      console.error('短信发送失败:', result.error);
+      // API 未配置时降级到控制台输出（测试模式）
+      console.log(`【测试模式】验证码: ${code}`);
+      return { success: true, message: '验证码已发送（测试模式）', code };
+    }
+  } catch (e) {
+    console.error('短信 API 调用失败:', e);
+    // API 未部署时降级到控制台输出（测试模式）
+    console.log(`【测试模式】验证码: ${code}`);
+    return { success: true, message: '验证码已发送（测试模式）', code };
+  }
 
   return { success: true, message: '验证码已发送', code };
 }
